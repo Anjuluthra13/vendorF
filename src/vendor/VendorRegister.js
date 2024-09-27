@@ -17,7 +17,7 @@ const Register = () => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('http://localhost:5000/api/register', { 
+            const response = await axios.post('vendorb-production.up.railway.app/api/register', { 
                 name, age, service, phone, email, password
             });
 
@@ -104,7 +104,7 @@ const Register = () => {
                 <button type="submit" className="btn-submit">Register</button>
             </form>
             <p className="login-link mt-3 text-center">
-                Already have an account? <Link to="/vendorlogin">Login here</Link>
+                Already have an account? <Link to="/">Login here</Link>
             </p>
             <ToastContainer />
         </div>
