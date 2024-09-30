@@ -15,7 +15,7 @@ const Delivery = () => {
     const getData = async (completedOrders) => {
         try {
             console.log('Fetching data from API...');
-            const res = await fetch('https://work4youbackend-production.up.railway.app/api/hire', {
+            const res = await fetch('https://vendorb-production.up.railway.app/get-delivary', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
