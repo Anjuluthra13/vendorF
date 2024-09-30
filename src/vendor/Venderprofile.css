@@ -414,5 +414,18 @@
         right: 10px;
     }
 }
+.btn-logout {
+    background-color: #dc3545; /* Bootstrap Danger Color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px; /* Add margin for spacing */
+}
+
+.btn-logout:hover {
+    background-color: #c82333; /* Darker shade on hover */
+}
 
 
