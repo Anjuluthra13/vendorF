@@ -43,7 +43,7 @@ const Register = () => {
             if (response.status === 201) {
                 toast.success('User registered successfully');
                 // Redirect user to login page after successful registration
-                history.push('/vendorlogin');
+                history.push('/');
             }
         } catch (err) {
             if (err.response) {
