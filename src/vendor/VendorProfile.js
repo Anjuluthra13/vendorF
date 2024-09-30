@@ -22,7 +22,6 @@ const Profile = () => {
                 // Fetch the user profile from the backend
                 const response = await axios.get(`https://vendorb-production.up.railway.app/api/profile?email=${storedUser.email}`);
 
-                
                 if (response.status === 200) {
                     setUserDetails(response.data);
                 }
@@ -41,6 +40,15 @@ const Profile = () => {
 
     const handlePending = () => {
         history.push('/vendororder');
+    };
+
+    // Logout function
+    const handleLogout = () => {
+        // Clear user details from localStorage
+        localStorage.removeItem('userDetails');
+        // Redirect to login page
+        history.push('/vendorlogin');
+        toast.success('Logged out successfully'); // Optional: Notify user of successful logout
     };
 
     return (
@@ -64,6 +72,7 @@ const Profile = () => {
                 <button className="btn-complete" onClick={handleComplete}>Completed Orders</button>
                 <button className="btn-pending" onClick={handlePending}>Pending Orders</button>
             </div>
+            <button className="btn-logout" onClick={handleLogout}>Logout</button> {/* Logout button */}
             <ToastContainer />
         </div>
     );
