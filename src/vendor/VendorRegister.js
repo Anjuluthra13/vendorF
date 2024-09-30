@@ -17,7 +17,7 @@ const Register = () => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('vendorb-production.up.railway.app/api/register', { 
+            const response = await axios.post('https://vendorb-production.up.railway.app/api/register', { 
                 name, age, service, phone, email, password
             });
 
