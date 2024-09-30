@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import this to apply toastify styles
 import './Venderprofile.css';
 
 const Register = () => {
@@ -27,8 +28,24 @@ const Register = () => {
                 history.push('/vendorlogin');
             }
         } catch (err) {
-            toast.error('Registration failed');
-            console.error(err); // Log error for debugging
+            if (err.response) {
+                // Server responded with a status other than 2xx
+                if (err.response.status === 400) {
+                    toast.error(err.response.data.message || 'Bad request. Please check your input.');
+                } else if (err.response.status === 500) {
+                    toast.error('Server error. Please try again later.');
+                } else {
+                    toast.error(`Error: ${err.response.status}. Please try again.`);
+                }
+            } else if (err.request) {
+                // Request was made, but no response was received
+                toast.error('No response from the server. Please check your network connection.');
+            } else {
+                // Something else caused the error
+                toast.error('An unknown error occurred. Please try again.');
+            }
+
+            console.error('Error during registration:', err); // Log error for debugging
         }
     };
 
