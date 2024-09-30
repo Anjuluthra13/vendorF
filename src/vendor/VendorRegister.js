@@ -7,9 +7,9 @@ import './Venderprofile.css';
 
 const Register = () => {
     const [name, setName] = useState('');
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState(''); // Keep as string
     const [service, setService] = useState('');
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState(''); // Keep as string initially, convert before sending
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory(); // Use history for navigation
@@ -32,7 +32,12 @@ const Register = () => {
 
         try {
             const response = await axios.post('https://vendorb-production.up.railway.app/api/register', { 
-                name, age, service, phone, email, password
+                name, 
+                age, 
+                service, 
+                phone: Number(phone), // Convert to a number for the API
+                email, 
+                password 
             });
 
             if (response.status === 201) {
@@ -99,6 +104,7 @@ const Register = () => {
                         <option value="Electrician">Electrician</option>
                         <option value="Cleaning">Cleaning</option>
                         <option value="Babysitter">Babysitter</option>
+                        <option value="Plumbing">Plumbing</option> {/* Added Plumbing option */}
                     </select>
                 </div>
                 <div className="form-group mb-3">
