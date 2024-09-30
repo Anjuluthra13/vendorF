@@ -14,7 +14,6 @@ const Delivery = () => {
 
     const getData = async (completedOrders) => {
         try {
-            console.log('Fetching data from API...');
             const res = await fetch('https://vendorb-production.up.railway.app/get-delivary', {
                 method: 'GET',
                 headers: {
@@ -22,10 +21,8 @@ const Delivery = () => {
                 }
             });
 
-            console.log('Response status:', res.status);
-
             const data = await res.json();
-            console.log('Data received:', data);
+            console.log(data);
 
             if (res.status === 422 || !data) {
                 console.log('Error fetching data');
@@ -35,7 +32,7 @@ const Delivery = () => {
                     !completedOrders.some(completedOrder => completedOrder.id === order.id)
                 );
                 setUserData(pendingOrders);
-                console.log('User data state updated:', pendingOrders);
+                console.log('Data fetched successfully');
             }
         } catch (err) {
             console.error('Error fetching delivery data:', err);
@@ -70,31 +67,25 @@ const Delivery = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {getUserData.length === 0 ? (
-                        <tr>
-                            <td colSpan="8" className="text-center">No pending deliveries available.</td>
+                    {getUserData.map((element, index) => (
+                        <tr key={element.id}> {/* Ensure each row has a unique key */}
+                            <td>{element.name}</td>
+                            <td>{element.amount}</td>
+                            <td>{element.address}</td>
+                            <td>{element.phone}</td>
+                            <td>{element.stime} AM</td>
+                            <td>{element.service}</td>
+                            <td>{formatDate(element.date)}</td>
+                            <td>
+                                <button 
+                                    className="btn-complete" 
+                                    onClick={() => handleCompleteOrder(element)}
+                                >
+                                    Complete
+                                </button>
+                            </td>
                         </tr>
-                    ) : (
-                        getUserData.map((element, index) => (
-                            <tr key={element.id}>
-                                <td>{element.name}</td>
-                                <td>{element.amount}</td>
-                                <td>{element.address}</td>
-                                <td>{element.phone}</td>
-                                <td>{element.stime} AM</td>
-                                <td>{element.service}</td>
-                                <td>{formatDate(element.date)}</td>
-                                <td>
-                                    <button 
-                                        className="btn-complete" 
-                                        onClick={() => handleCompleteOrder(element)}
-                                    >
-                                        Complete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    )}
+                    ))}
                 </tbody>
             </table>
         </div>
