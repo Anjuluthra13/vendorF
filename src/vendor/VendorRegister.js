@@ -16,7 +16,20 @@ const Register = () => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        
+
+        // Basic validation for inputs
+        if (!name || !age || !service || !phone || !email || !password) {
+            toast.error('All fields are required.');
+            return;
+        }
+
+        // Regex for basic phone number validation
+        const phoneRegex = /^[0-9]{10}$/; // Assuming 10-digit phone numbers
+        if (!phoneRegex.test(phone)) {
+            toast.error('Phone number must be 10 digits.');
+            return;
+        }
+
         try {
             const response = await axios.post('https://vendorb-production.up.railway.app/api/register', { 
                 name, age, service, phone, email, password
@@ -90,7 +103,7 @@ const Register = () => {
                 </div>
                 <div className="form-group mb-3">
                     <input
-                        type="text"
+                        type="tel" // Changed to 'tel' for better mobile experience
                         className="form-input"
                         placeholder="Phone Number"
                         value={phone}
