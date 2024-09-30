@@ -20,7 +20,8 @@ const Profile = () => {
                 }
 
                 // Fetch the user profile from the backend
-                const response = await axios.get(`http://localhost:5000/api/profile?email=${storedUser.email}`);
+                const response = await axios.get(`https://vendorb-production.up.railway.app/api/profile?email=${storedUser.email}`);
+
                 
                 if (response.status === 200) {
                     setUserDetails(response.data);
